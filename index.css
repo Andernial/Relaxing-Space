@@ -13,8 +13,6 @@
 
 }
 
-
-
 .box{
     margin-top: 20px;
     width: 300px;
@@ -31,4 +29,9 @@
 }
 .button:hover{
     background-color: gray;
+}
+
+.screen-video{
+    width: 500px;
+    height: 300px;
 }

@@ -1,5 +1,5 @@
 
-const urls = ['https://www.youtube.com/watch?v=qw50dx9KO-c', 'https://www.youtube.com/watch?v=RReTCVFifEM', 'https://www.youtube.com/watch?v=gU-8U7Z-E64&t=102s']
+const urls = ['https://www.youtube.com/watch?v=qw50dx9KO-c', 'https://www.youtube.com/watch?v=RReTCVFifEM', 'https://www.youtube.com/watch?v=gU-8U7Z-E64']
 
 function selectRandom() {
     const randomNumber = Math.floor(Math.random() * urls.length) 
@@ -52,47 +52,54 @@ function cleanYoutubeUrl(){
     const randomNumber = manageNumbers()
     
     const selectedUrl = urls[randomNumber]
-    const startIndex = selectedUrl.split('v=')
-    const videoId = startIndex[1]
+    // const startIndex = selectedUrl.split('v=')
+    // const videoId = startIndex[1]
 
-    console.log(videoId)
-    return videoId
+    return selectedUrl
 
 }
 
-const loadMoreButton = $('#button-load').on('click', () => {
+
+$(document).ready(function () {
+
+   $('#button-load').on('click', () => {
 
         let videoId = cleanYoutubeUrl()
-   
-        onYouTubePlayerAPIReady(videoId)
+        console.log(videoId)
+        let newUrl = videoId.replace("watch?v=", "embed/")
+
+        $('iframe').attr( "src", newUrl)
     
     
 })
 
-$(document).ready(function () {
-    loadYoutube()
+
 });
 
-function loadYoutube(){
-    const tag = $("<script></script>");
-    tag.attr('src', 'https://www.youtube.com/player_api');
-    const control = $('script').first();
-    control.before(tag);
-}
 
 
 
-function onYouTubePlayerAPIReady(videoId) {
-    if (window.player) {
-        window.player.destroy();
-    }
-    window.player = new YT.Player('video', {
-        height: '360',
-        width: '640',
-        videoId: videoId,
-        host: `${window.location.protocol}//www.youtube.com`
-    });
-}
+
+// function loadYoutube(){
+//     const tag = $("<script></script>");
+//     tag.attr('src', 'https://www.youtube.com/player_api');
+//     const control = $('script').first();
+//     control.before(tag);
+// }
+
+
+
+// function onYouTubePlayerAPIReady(videoId) {
+//     if (window.player) {
+//         window.player.destroy();
+//     }
+//     window.player = new YT.Player('video', {
+//         height: '360',
+//         width: '640',
+//         videoId: videoId,
+//         host: `${window.location.protocol}//www.youtube.com`
+//     });
+// }
 
 
 
