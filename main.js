@@ -152,7 +152,7 @@ function onYouTubeIframeAPIReady(videoID) {
     if(!videoID){
         return
     }
-    if (window.player) {
+    if(window.player) {
         window.player.destroy();
     }
     window.player = new YT.Player('video', {
