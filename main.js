@@ -115,7 +115,6 @@ async function loadMoreVideos(){
 
 
 $(document).ready(function () {
-
 let theme = JSON.parse(localStorage.getItem('theme'))
 
 if(theme && theme === true){
@@ -153,9 +152,7 @@ function onYouTubeIframeAPIReady(videoID) {
     if(!videoID){
         return
     }
-    if (window.player) {
-        window.player.destroy();
-    }
+    window.player.destroy();
     window.player = new YT.Player('video', {
         height: '360',
         width: '640',
