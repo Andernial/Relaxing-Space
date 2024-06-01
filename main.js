@@ -1,57 +1,71 @@
 
-const urls = ['https://www.youtube.com/watch?v=qw50dx9KO-c', 'https://www.youtube.com/watch?v=RReTCVFifEM', 'https://www.youtube.com/watch?v=gU-8U7Z-E64']
 
-function selectRandom() {
-    const randomNumber = Math.floor(Math.random() * urls.length) 
-    return randomNumber
+function getAnotherUrl() {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: 'https://mental-space-api.onrender.com/Relaxing/random-music',
+            type: 'GET',
+            dataType: 'json',
+            success: (response) => {
+                resolve(response);
+            },
+            error: (xhr, status, error) => {
+                reject(error);
+            }
+        });
+    });
 }
 
 function verifyNumberAlready(array, number) {
     return array.includes(number)
 }
 
-function manageNumbers() {
+async function manageNumbers(response) {
     let selectedNumber = []
-    let newNumber;
+    let newNumber = response.result[0]
     let currentNumbers = JSON.parse(localStorage.getItem('numero'))
-
     if (currentNumbers) {
-        newNumber = selectRandom()
-
-        if(urls.length === currentNumbers.length){
-            currentNumbers = []
-            localStorage.setItem('numero',JSON.stringify(currentNumbers))
-        }
+      
+        console.log(newNumber)
+        // if(urls.length === currentNumbers.length){
+        //     currentNumbers = []
+        //     localStorage.setItem('numero',JSON.stringify(currentNumbers))
+        // }
 
         do {
-            newNumber = selectRandom()
-        } while (verifyNumberAlready(currentNumbers, newNumber));
+            const response = await getAnotherUrl()
+            console.log(response)
+            newNumber = response.result[0]
+        } while (verifyNumberAlready(currentNumbers, newNumber.id));
 
 
         currentNumbers.forEach(number => {
             selectedNumber.push(number)
         });
 
-        selectedNumber.push(newNumber)
+        selectedNumber.push(newNumber.id)
 
         localStorage.setItem('numero', JSON.stringify(selectedNumber))
 
     }
 
     if (!currentNumbers) {
-        newNumber = selectRandom()
-        selectedNumber.push(newNumber)
+        console.log(newNumber)
+        selectedNumber.push(newNumber.id)
         localStorage.setItem('numero', JSON.stringify(selectedNumber))
     }
-    console.log(newNumber)
-    return newNumber
+    console.log(newNumber.url)
+    return newNumber.url
+    
 
 }
 
-function cleanYoutubeUrl(){
-    const randomNumber = manageNumbers()
+async function cleanYoutubeUrl(response){
+    const randomNumber = await manageNumbers(response)
+
+    console.log(randomNumber)
     
-    const selectedUrl = urls[randomNumber]
+    const selectedUrl = randomNumber
     // const startIndex = selectedUrl.split('v=')
     // const videoId = startIndex[1]
 
@@ -62,14 +76,31 @@ function cleanYoutubeUrl(){
 
 $(document).ready(function () {
 
+
+   
+
    $('#button-load').on('click', () => {
 
-        let videoId = cleanYoutubeUrl()
-        console.log(videoId)
-        let newUrl = videoId.replace("watch?v=", "embed/")
+    $.ajax({
+        url:'https://mental-space-api.onrender.com/Relaxing/random-music',
+        type:'GET',
+        dataType:'json',
+        success: async (response)=>{
+            const cleanResponse = JSON.stringify(response)
+            const objectResp = JSON.parse(cleanResponse)
+      
+            let videoId = await cleanYoutubeUrl(objectResp)
+            console.log(videoId)
+            let newUrl = videoId.replace("watch?v=", "embed/") + "?autoplay=1"
+            console.log(newUrl)
+            $('iframe').attr( "src", newUrl)
+        
+        },
+        error:(xhr,status,error) =>{
+            console.log("request error",error)
+        }
+    })
 
-        $('iframe').attr( "src", newUrl)
-    
     
 })
 
@@ -79,7 +110,7 @@ $(document).ready(function () {
 
 
 
-
+// tem esse jeito de carregar os vídeos do youtube na tela, mas isso lota o console de erros :p
 // function loadYoutube(){
 //     const tag = $("<script></script>");
 //     tag.attr('src', 'https://www.youtube.com/player_api');
