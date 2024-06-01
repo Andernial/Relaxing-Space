@@ -149,6 +149,10 @@ if(theme && theme === true){
 
 
 function onYouTubeIframeAPIReady(videoID) {
+
+    if(!videoID){
+        return
+    }
     if (window.player) {
         window.player.destroy();
     }
