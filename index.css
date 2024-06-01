@@ -20,6 +20,19 @@
 
 }
 
+#loader{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: black;
+    width: 100%;
+    height: 100vh;
+    z-index: 99;
+    clip-path: circle(0% at 50% 50%);
+}
+
+
 .app{
     display: flex;
     flex-direction: column;
@@ -49,19 +62,7 @@
     border: 1px solid black;
 }
 
-.button-load{
-    margin: 10px;
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 1.5rem;
-    cursor: pointer;
-    transition: 1s;
-    background-color: var(--main-bg-color);
-}
-.button-load:hover{
-    background-color: rgb(159, 158, 158);
-    color: white;
-}
+
 
 .screen-video{
     width: 500px;
@@ -71,11 +72,28 @@
 .buttons{
     display: flex;
     justify-content: center;
+    height: 20px;
     width: 100%;
     align-items: center;
     gap: 200px;
+    margin: 50px;
     
 }
+
+.button-load{
+    display: flex;
+    align-items: center;
+    border: none;
+    height: 0;
+    cursor: pointer;
+
+}
+
+.random-box{
+    height: 64px;
+    width: 64px;
+}
+
 #changeTheme{
     display: flex;
     align-items: center;
@@ -95,4 +113,38 @@
 
 .dark-button{
     color: var(--dark-button-color);
+}
+
+
+
+@media screen and (min-width: 0px) and (max-width:700px) {
+    #video{
+        width: 300px;
+    }
+}
+
+
+@keyframes circleIn{
+    from{
+        clip-path: circle(0% at 50% 68%);
+    }
+    to {
+        clip-path: circle(150%);
+    }
+} 
+
+ @keyframes circleOut{
+    from{
+        clip-path: circle(150%);
+    }
+    to {
+        clip-path: circle(0% at 50% 68%);
+    }
+} 
+
+
+
+@keyframes colorChange {
+    from { color: black; border-color: white; }
+    to { color: white; border-color: black; }
 }

@@ -25,8 +25,6 @@ async function manageNumbers(response) {
     let newNumber = response.result[0]
     let currentNumbers = JSON.parse(localStorage.getItem('numero'))
     if (currentNumbers) {
-      
-        console.log(newNumber)
         // if(urls.length === currentNumbers.length){
         //     currentNumbers = []
         //     localStorage.setItem('numero',JSON.stringify(currentNumbers))
@@ -34,7 +32,6 @@ async function manageNumbers(response) {
 
         do {
             const response = await getAnotherUrl()
-            console.log(response)
             newNumber = response.result[0]
         } while (verifyNumberAlready(currentNumbers, newNumber.id));
 
@@ -50,11 +47,9 @@ async function manageNumbers(response) {
     }
 
     if (!currentNumbers) {
-        console.log(newNumber)
         selectedNumber.push(newNumber.id)
         localStorage.setItem('numero', JSON.stringify(selectedNumber))
     }
-    console.log(newNumber.url)
     return newNumber.url
     
 
@@ -62,8 +57,6 @@ async function manageNumbers(response) {
 
 async function cleanYoutubeUrl(response){
     const randomNumber = await manageNumbers(response)
-
-    console.log(randomNumber)
     
     const selectedUrl = randomNumber
     // const startIndex = selectedUrl.split('v=')
@@ -78,7 +71,7 @@ function changeTheme(theme){
 
        $('*').toggleClass('dark-text')
        $('.app').toggleClass('dark-theme')
-       $('.button-load').toggleClass('dark-button')
+       $('#video').toggleClass('dark-border')
 
        if(theme === true){
         $('.lamp').attr('src','./assets/icons/light-default.png')
@@ -96,11 +89,6 @@ function onPlayerStateChange(event) {
     }
 }
 
-
-// function onPlayerReady(event) {
-//     event.target.playVideo(); // Inicia a reprodução do vídeo automaticamente
-// }
-
 async function loadMoreVideos(){
     $('#button-load').prop('disabled',true)
     $.ajax({
@@ -112,17 +100,15 @@ async function loadMoreVideos(){
             const objectResp = JSON.parse(cleanResponse)
       
             let videoId = await cleanYoutubeUrl(objectResp)
-            console.log(videoId)
             const newUrl = videoId.split('v=')[1]
             // let newUrl = videoId.replace("watch?v=", "embed/") + "?autoplay=1" + "&enablejsapi=1" // isso é para carregar vídeos usando iframe
-            console.log(newUrl)
             // $('iframe').attr( "src", newUrl) // isso é para carregar vídeos usando iframe
 
             onYouTubeIframeAPIReady(newUrl);
         },
         error:(xhr,status,error) =>{
             $('#button-load').prop('disabled',false)
-            console.log("request error",error)
+            alert('Erro interno da api sorry :(')
         }
     })
 }
@@ -137,6 +123,8 @@ if(theme && theme === true){
 }
 
     $('#changeTheme').on('click', ()=>{
+        $('#loader').css('animation', 'circleIn 3.5s');
+        setTimeout(() => {
         let theme = JSON.parse(localStorage.getItem('theme'))
         if(!theme){
             theme = false
@@ -145,6 +133,10 @@ if(theme && theme === true){
         changeTheme(theme)
 
         localStorage.setItem('theme',JSON.stringify(theme))
+
+        $('#loader').css('animation', 'circleOut 1.5s');
+        }, 1300);
+        
     })
     
    $('#button-load').on('click', () => {
@@ -178,52 +170,7 @@ function onYouTubeIframeAPIReady(videoID) {
 }
 
 
-// comando para chamar animação
 
-// let button = document.getElementById('btn1')
-
-// function load(){
-//     let loader = document.getElementById('loader')
-//     let page1 = document.getElementById('page1')
-//     let page2 = document.getElementById('page2')
-    
-//     loader.style.animation = 'circleIn 3.5s'
-//     setTimeout(()=>{
-//         page1.style.display ='none';
-//         page2.style.display = 'flex';
-//         loader.style.animation = 'circleOut 1.5s'
-//     }, 1300)
-
-// }
-
-
-// button.addEventListener('click', ()=>{
-//     load()
-// })
-
-
-
-// tem esse jeito de carregar os vídeos do youtube na tela, mas isso lota o console de erros :p
-// function loadYoutube(){
-//     const tag = $("<script></script>");
-//     tag.attr('src', 'https://www.youtube.com/player_api');
-//     const control = $('script').first();
-//     control.before(tag);
-// }
-
-
-
-// function onYouTubePlayerAPIReady(videoId) {
-    // if (window.player) {
-    //     window.player.destroy();
-    // }
-    // window.player = new YT.Player('video', {
-//         height: '360',
-//         width: '640',
-//         videoId: videoId,
-//         host: `${window.location.protocol}//www.youtube.com`
-//     });
-// }
 
 
 
