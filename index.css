@@ -1,6 +1,23 @@
+@font-face {
+    font-family: 'Omori1';
+    src: url(./assets//fonts/OMORI_GAME2.ttf);
+}
 *{
     margin: 0;
     padding: 0;
+    font-family: 'Omori1';
+    font-size: 2rem;
+    color: var(--main-text-color);
+}
+:root{
+    --main-bg-color: #f0f0f0;
+    --main-button-color: unset;
+    --main-text-color: #333333;
+    --dark-text-color: white;
+    --dark-bg-color: black;
+    --dark-button-color: black;
+
+
 }
 
 .app{
@@ -10,7 +27,13 @@
     align-items: center;
     height: 100vh;
     width: 100vw;
+    background-color: var(--main-bg-color);
 
+}
+
+
+.main-title{
+    margin: 20px;
 }
 
 .box{
@@ -20,18 +43,56 @@
     border: 1px black solid;
 }
 
-.button{
+#video{
+    height: 360px;
+    width: 640px;
+    border: 1px solid black;
+}
+
+.button-load{
     margin: 10px;
     padding: 10px;
-    border: none;
+    border-radius: 10px;
+    font-size: 1.5rem;
     cursor: pointer;
     transition: 1s;
+    background-color: var(--main-bg-color);
 }
-.button:hover{
-    background-color: gray;
+.button-load:hover{
+    background-color: rgb(159, 158, 158);
+    color: white;
 }
 
 .screen-video{
     width: 500px;
     height: 300px;
+}
+
+.buttons{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    gap: 200px;
+    
+}
+#changeTheme{
+    display: flex;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    height: 0;
+}
+
+.dark-theme{
+    background-color: var(--dark-bg-color);
+    
+}
+
+.dark-text{
+    color: var(--dark-text-color);
+}
+
+.dark-button{
+    color: var(--dark-button-color);
 }

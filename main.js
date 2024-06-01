@@ -68,19 +68,41 @@ async function cleanYoutubeUrl(response){
     const selectedUrl = randomNumber
     // const startIndex = selectedUrl.split('v=')
     // const videoId = startIndex[1]
-
+    $('#button-load').prop('disabled',false)
     return selectedUrl
 
 }
 
 
-$(document).ready(function () {
+function changeTheme(theme){
+
+       $('*').toggleClass('dark-text')
+       $('.app').toggleClass('dark-theme')
+       $('.button-load').toggleClass('dark-button')
+
+       if(theme === true){
+        $('.lamp').attr('src','./assets/icons/light-default.png')
+       }
+       if(theme === false){
+        $('.lamp').attr('src','./assets/icons/light.png')
+         
+       }
+}
 
 
-   
+function onPlayerStateChange(event) {
+    if (event.data == YT.PlayerState.ENDED) {
+        loadMoreVideos()
+    }
+}
 
-   $('#button-load').on('click', () => {
 
+// function onPlayerReady(event) {
+//     event.target.playVideo(); // Inicia a reprodução do vídeo automaticamente
+// }
+
+async function loadMoreVideos(){
+    $('#button-load').prop('disabled',true)
     $.ajax({
         url:'https://mental-space-api.onrender.com/Relaxing/random-music',
         type:'GET',
@@ -91,22 +113,93 @@ $(document).ready(function () {
       
             let videoId = await cleanYoutubeUrl(objectResp)
             console.log(videoId)
-            let newUrl = videoId.replace("watch?v=", "embed/") + "?autoplay=1"
+            const newUrl = videoId.split('v=')[1]
+            // let newUrl = videoId.replace("watch?v=", "embed/") + "?autoplay=1" + "&enablejsapi=1" // isso é para carregar vídeos usando iframe
             console.log(newUrl)
-            $('iframe').attr( "src", newUrl)
-        
+            // $('iframe').attr( "src", newUrl) // isso é para carregar vídeos usando iframe
+
+            onYouTubeIframeAPIReady(newUrl);
         },
         error:(xhr,status,error) =>{
+            $('#button-load').prop('disabled',false)
             console.log("request error",error)
         }
     })
+}
 
+
+$(document).ready(function () {
+
+let theme = JSON.parse(localStorage.getItem('theme'))
+
+if(theme && theme === true){
+    changeTheme(theme)
+}
+
+    $('#changeTheme').on('click', ()=>{
+        let theme = JSON.parse(localStorage.getItem('theme'))
+        if(!theme){
+            theme = false
+        }
+        theme = !theme
+        changeTheme(theme)
+
+        localStorage.setItem('theme',JSON.stringify(theme))
+    })
+    
+   $('#button-load').on('click', () => {
+    loadMoreVideos()
     
 })
 
 
 });
 
+
+function onYouTubeIframeAPIReady(videoID) {
+    if (window.player) {
+        window.player.destroy();
+    }
+    window.player = new YT.Player('video', {
+        height: '360',
+        width: '640',
+        videoId: videoID, 
+        host: 'https://www.youtube.com',
+        origin: window.location.origin,
+        playerVars: {
+            'autoplay': 1 
+        },
+        events: {
+            'onStateChange': onPlayerStateChange
+        }
+    });
+
+    
+}
+
+
+// comando para chamar animação
+
+// let button = document.getElementById('btn1')
+
+// function load(){
+//     let loader = document.getElementById('loader')
+//     let page1 = document.getElementById('page1')
+//     let page2 = document.getElementById('page2')
+    
+//     loader.style.animation = 'circleIn 3.5s'
+//     setTimeout(()=>{
+//         page1.style.display ='none';
+//         page2.style.display = 'flex';
+//         loader.style.animation = 'circleOut 1.5s'
+//     }, 1300)
+
+// }
+
+
+// button.addEventListener('click', ()=>{
+//     load()
+// })
 
 
 
@@ -121,10 +214,10 @@ $(document).ready(function () {
 
 
 // function onYouTubePlayerAPIReady(videoId) {
-//     if (window.player) {
-//         window.player.destroy();
-//     }
-//     window.player = new YT.Player('video', {
+    // if (window.player) {
+    //     window.player.destroy();
+    // }
+    // window.player = new YT.Player('video', {
 //         height: '360',
 //         width: '640',
 //         videoId: videoId,

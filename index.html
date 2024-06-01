@@ -1,21 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous" ></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="index.css">
     <title>Document</title>
 </head>
+
 <body>
+    <div class="loader" id="loader"></div>
     <div class="app">
-        <h1>Projeto jquery</h1>
+        <h1 class="main-title">Bem vindo!</h1>
         <div id="video">
-            <iframe src="" frameborder="0" allowfullscreen class="screen-video"></iframe>
+            <!-- <iframe src="" allow="fullscreen" class="screen-video"></iframe> -->
         </div>
-        <button id="button-load">Load random</button>
+
+        <div class="buttons">
+            <button id="button-load" class="button-load">Load random</button>
+            <button id="changeTheme"><img src="./assets//icons/light.png" alt="trocar tema" class="lamp"></button>
+        </div>
+
     </div>
-    
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="main.js"></script>
 </body>
-<script src="main.js"></script>
+
+
 </html>
