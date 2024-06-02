@@ -16,8 +16,6 @@
     --dark-text-color: white;
     --dark-bg-color: black;
     --dark-button-color: black;
-
-
 }
 
 #loader{
@@ -110,12 +108,6 @@
 .dark-text{
     color: var(--dark-text-color);
 }
-
-.dark-button{
-    color: var(--dark-button-color);
-}
-
-
 
 @media screen and (min-width: 0px) and (max-width:700px) {
     #video{
