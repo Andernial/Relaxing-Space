@@ -13,11 +13,9 @@
 
 :root {
     --main-bg-color: #f0f0f0;
-    --main-button-color: unset;
     --main-text-color: #333333;
     --dark-text-color: white;
     --dark-bg-color: black;
-    --dark-button-color: black;
 }
 
 #loader {
