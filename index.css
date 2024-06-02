@@ -2,14 +2,16 @@
     font-family: 'Omori1';
     src: url(./assets//fonts/OMORI_GAME2.ttf);
 }
-*{
+
+* {
     margin: 0;
     padding: 0;
     font-family: 'Omori1';
     font-size: 2rem;
     color: var(--main-text-color);
 }
-:root{
+
+:root {
     --main-bg-color: #f0f0f0;
     --main-button-color: unset;
     --main-text-color: #333333;
@@ -18,7 +20,7 @@
     --dark-button-color: black;
 }
 
-#loader{
+#loader {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -31,7 +33,7 @@
 }
 
 
-.app{
+.app {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -43,18 +45,18 @@
 }
 
 
-.main-title{
+.main-title {
     margin: 20px;
 }
 
-.box{
+.box {
     margin-top: 20px;
     width: 300px;
     height: 300px;
     border: 1px black solid;
 }
 
-#video{
+#video {
     height: 360px;
     width: 640px;
     border: 1px solid black;
@@ -62,12 +64,12 @@
 
 
 
-.screen-video{
+.screen-video {
     width: 500px;
     height: 300px;
 }
 
-.buttons{
+.buttons {
     display: flex;
     justify-content: center;
     height: 20px;
@@ -75,10 +77,10 @@
     align-items: center;
     gap: 200px;
     margin: 50px;
-    
+
 }
 
-.button-load{
+.button-load {
     display: flex;
     align-items: center;
     border: none;
@@ -87,12 +89,12 @@
 
 }
 
-.random-box{
+.random-box {
     height: 64px;
     width: 64px;
 }
 
-#changeTheme{
+#changeTheme {
     display: flex;
     align-items: center;
     border: none;
@@ -100,43 +102,52 @@
     height: 0;
 }
 
-.dark-theme{
+.dark-theme {
     background-color: var(--dark-bg-color);
-    
+
 }
 
-.dark-text{
+.dark-text {
     color: var(--dark-text-color);
 }
 
 @media screen and (min-width: 0px) and (max-width:700px) {
-    #video{
+    #video {
         width: 300px;
     }
 }
 
 
-@keyframes circleIn{
-    from{
+@keyframes circleIn {
+    from {
         clip-path: circle(0% at 50% 68%);
     }
-    to {
-        clip-path: circle(150%);
-    }
-} 
 
- @keyframes circleOut{
-    from{
+    to {
         clip-path: circle(150%);
     }
+}
+
+@keyframes circleOut {
+    from {
+        clip-path: circle(150%);
+    }
+
     to {
         clip-path: circle(0% at 50% 68%);
     }
-} 
+}
 
 
 
 @keyframes colorChange {
-    from { color: black; border-color: white; }
-    to { color: white; border-color: black; }
+    from {
+        color: black;
+        border-color: white;
+    }
+
+    to {
+        color: white;
+        border-color: black;
+    }
 }
