@@ -1,9 +1,5 @@
-
-function verifyNumberAlready(array, number) {
-    return array.includes(number)
-}
-
 async function cleanYoutubeUrl(response) {
+
     const url = await response.result[0].url
 
     const selectedUrl = url
@@ -13,7 +9,6 @@ async function cleanYoutubeUrl(response) {
     return selectedUrl
 
 }
-
 
 function changeTheme(theme) {
 
@@ -30,7 +25,6 @@ function changeTheme(theme) {
     }
 }
 
-
 function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.ENDED) {
         loadMoreVideos()
@@ -38,6 +32,7 @@ function onPlayerStateChange(event) {
 }
 
 async function loadMoreVideos() {
+
     $('.random-box').attr('src', './assets/icons/lowOpacity-random.png')
     $('#button-load').prop('disabled', true)
 
@@ -60,8 +55,8 @@ async function loadMoreVideos() {
     })
 }
 
-
 $(document).ready(function () {
+    
     let theme = JSON.parse(localStorage.getItem('theme'))
 
     if (theme && theme === true) {
@@ -82,14 +77,12 @@ $(document).ready(function () {
 
             $('#loader').css('animation', 'circleOut 1.5s');
         }, 1300);
-
     })
 
     $('#button-load').on('click', () => {
         loadMoreVideos()
 
     })
-
 });
 
 function onYouTubeIframeAPIReady(videoID) {
@@ -113,6 +106,4 @@ function onYouTubeIframeAPIReady(videoID) {
             'onStateChange': onPlayerStateChange
         }
     });
-
-
 }
