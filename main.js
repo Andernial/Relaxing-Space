@@ -4,9 +4,9 @@ function verifyNumberAlready(array, number) {
 }
 
 async function cleanYoutubeUrl(response) {
-    const randomNumber = await response.result[0].url
+    const url = await response.result[0].url
 
-    const selectedUrl = randomNumber
+    const selectedUrl = url
 
     $('#button-load').prop('disabled', false)
     return selectedUrl
@@ -46,12 +46,12 @@ async function loadMoreVideos() {
             const cleanResponse = JSON.stringify(response)
             const objectResp = JSON.parse(cleanResponse)
 
-            let videoId = await cleanYoutubeUrl(objectResp)
-            const newUrl = videoId.split('v=')[1]
+            let newUrl = await cleanYoutubeUrl(objectResp)
+            const videoId = newUrl.split('v=')[1]
             // let newUrl = videoId.replace("watch?v=", "embed/") + "?autoplay=1" + "&enablejsapi=1" // isso é para carregar vídeos usando iframe
             // $('iframe').attr( "src", newUrl) // isso é para carregar vídeos usando iframe
 
-            onYouTubeIframeAPIReady(newUrl);
+            onYouTubeIframeAPIReady(videoId);
         },
         error: (xhr, status, error) => {
             $('#button-load').prop('disabled', false)
