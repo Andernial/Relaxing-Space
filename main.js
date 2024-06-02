@@ -9,6 +9,7 @@ async function cleanYoutubeUrl(response) {
     const selectedUrl = url
 
     $('#button-load').prop('disabled', false)
+    $('.random-box').attr('src','./assets/icons/random.png')
     return selectedUrl
 
 }
@@ -37,7 +38,9 @@ function onPlayerStateChange(event) {
 }
 
 async function loadMoreVideos() {
+    $('.random-box').attr('src','./assets/icons/lowOpacity-random.png')
     $('#button-load').prop('disabled', true)
+    
     $.ajax({
         url: 'https://mental-space-api.onrender.com/Relaxing/random-music',
         type: 'GET',
