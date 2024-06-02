@@ -9,7 +9,7 @@ async function cleanYoutubeUrl(response) {
     const selectedUrl = url
 
     $('#button-load').prop('disabled', false)
-    $('.random-box').attr('src','./assets/icons/random.png')
+    $('.random-box').attr('src', './assets/icons/random.png')
     return selectedUrl
 
 }
@@ -38,9 +38,9 @@ function onPlayerStateChange(event) {
 }
 
 async function loadMoreVideos() {
-    $('.random-box').attr('src','./assets/icons/lowOpacity-random.png')
+    $('.random-box').attr('src', './assets/icons/lowOpacity-random.png')
     $('#button-load').prop('disabled', true)
-    
+
     $.ajax({
         url: 'https://mental-space-api.onrender.com/Relaxing/random-music',
         type: 'GET',
@@ -51,9 +51,6 @@ async function loadMoreVideos() {
 
             let newUrl = await cleanYoutubeUrl(objectResp)
             const videoId = newUrl.split('v=')[1]
-            // let newUrl = videoId.replace("watch?v=", "embed/") + "?autoplay=1" + "&enablejsapi=1" // isso é para carregar vídeos usando iframe
-            // $('iframe').attr( "src", newUrl) // isso é para carregar vídeos usando iframe
-
             onYouTubeIframeAPIReady(videoId);
         },
         error: (xhr, status, error) => {
