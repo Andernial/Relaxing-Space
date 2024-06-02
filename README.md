@@ -9,6 +9,9 @@ As músicas vêm da minha API 'Mental-Space-Api' de um endpoint que traz de form
 
 Você pode acessar o deploy aqui: https://andernial.github.io/Relaxing-Space/ (se você apertar o botão e demorar para acontecer algo, é normal. A API foi hospedada no Render e, às vezes, o Render desativa a API por alguns minutos.)
 
+## Para Acessar Localmente 🏠​
+Para acessar o frontEnd localmente basta abrir o arquivo index.html no seu navegador.
+
 ## Tecnologias Utilizadas​ 🤖​
 jQuery, Ajax, HTML, CSS
 
