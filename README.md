@@ -1,4 +1,4 @@
-# Relaxing-Space 🌊​
+# Relaxing-Space 🌊​ - API DE MUSICAS TEMPORARIAMENTE DESATIVADA 
 
 ## Visão geral 👁️​
 Relaxing Space foi desenvolvido durante meus testes com uma biblioteca mais antiga chamada jQuery.
